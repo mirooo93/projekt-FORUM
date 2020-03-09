@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+<ul>
+    {% for post in posts %}
+    <li>{{ post.title }}</li>
+    <li>{{ post.email }}</li>
+    <li>{{ post.authorName }}</li>
+    <li>{{ post.text }}</li>
+    <li>{{ post.picture }}</li>
+    <li>{{ post.comment }}</li>
+    <li>{{ post.id }}</li>
+    <br>
+
+    {% endfor %}   
+</ul>
+
+{% endblock %}
