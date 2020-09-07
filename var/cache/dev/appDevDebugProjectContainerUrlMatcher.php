@@ -138,16 +138,16 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $this->mergeDefaults(array_replace($matches, ['_route' => 'forum_show']), array (  '_controller' => 'AppBundle\\Controller\\ForumController::show',));
             }
 
+            // edit_forum
+            if (0 === strpos($pathinfo, '/reddit/edit') && preg_match('#^/reddit/edit/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'edit_forum']), array (  '_controller' => 'AppBundle\\Controller\\ForumController::edit',));
+            }
+
         }
 
-        // app_registar_new
+        // reg
         if ('/registar' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\RegistarController::newAction',  '_route' => 'app_registar_new',);
-        }
-
-        // hom
-        if ('/home' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\HomeController::newAction',  '_route' => 'hom',);
+            return array (  '_controller' => 'AppBundle\\Controller\\RegistarController::newAction',  '_route' => 'reg',);
         }
 
         // log
@@ -155,9 +155,9 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\LoginController::newAction',  '_route' => 'log',);
         }
 
-        // app_lucky_number
-        if ('/lucky/number' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\LuckyController::numberAction',  '_route' => 'app_lucky_number',);
+        // logout
+        if ('/logout' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\LoginController::logoutAction',  '_route' => 'logout',);
         }
 
         if ('/' === $pathinfo && !$allow) {

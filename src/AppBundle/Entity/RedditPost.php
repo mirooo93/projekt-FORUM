@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * Class RedditPost
@@ -10,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="reddit_post")
  */
-
 class RedditPost
 {
 	/**
@@ -18,42 +18,42 @@ class RedditPost
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	protected $id;
+	private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $userId;
 
 	/**
 	 * @ORM\Column(type="string", length=100)
 	 */
-	protected $title;
-
-	/**
-	 * @ORM\Column(type="string")
-	 */
-	protected $email = 'defoult@gmail.com';
-	
+	private $title;
 
 	/**
 	 * @ORM\Column(type="string", length=1000)
 	 */
-	protected $text;
-
-
-	/**
-	 * @ORM\Column(type="string")
-	 */
-	protected $picture = 'slika';
-
+	private $text;
 
 	/**
-	 * @ORM\Column(type="string")
+     * @var string
+	 * @ORM\Column(type="string", nullable=true)
 	 */
-	protected $authorName = 'robot';
-
+	private $image = 'No image';
 
 	/**
-	 * @ORM\Column(type="string")
+     * @var \DateTime
+     *
+	 * @ORM\Column(type="datetime")
 	 */
-	protected $comment = 'no comm';
+	private $postDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RedditComment", mappedBy="postId")
+     */
+    private $comments;
+   
 	/**
 	 * @return mixed
 	 */
@@ -63,8 +63,12 @@ class RedditPost
         // to show the id of the Category in the select
         // return $this->id;
     }
-	//get set
-	//1
+
+    public function __construct()
+    {
+        $this->postDate = new \DateTime();
+    }
+
 	/**
 	 * @return mixed
 	 */
@@ -74,11 +78,10 @@ class RedditPost
     }
     //ne treba mi set jer je auto increment (AI)
 
-    //2
     /**
 	 * @return mixed
 	 */
-     public function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -92,25 +95,29 @@ class RedditPost
         $this->title = $title;
     }
 
-    //3
     /**
-	 * @return mixed
+     * Get userId
+     *
+	 * @return \AppBundle\Entity\User
 	 */
-     public function getEmail()
+    public function getUserId()
     {
-        return $this->email;
+        return $this->userId;
     }
 
     /**
-	 * @return mixed $email
-	 * @return RedditPost
-	 */
-    public function setEmail($email)
+     * Set userId
+     * 
+     * @param \AppBundle\Entity\User $userId
+     *
+     * @return RedditPost
+     */
+    public function setUserId(\AppBundle\Entity\User $userId = null)
     {
-        $this->email = $email;
+        $this->userId = $userId;
+        return $this;
     }
 
-    //4
     /**
 	 * @return mixed
 	 */
@@ -128,44 +135,23 @@ class RedditPost
         $this->text = $text;
     }
 
-    //5
     /**
 	 * @return mixed
 	 */
-     public function getPicture()
+     public function getImage()
     {
-        return $this->picture;
+        return $this->image;
     }
 
     /**
-	 * @return mixed $picture
+	 * @return mixed $image
 	 * @return RedditPost
 	 */
-    public function setPicture($picture)
+    public function setImage($image)
     {
-        $this->picture = $picture;
+        $this->image = $image;
     }
 
-    //6
-    /**
-	 * @return mixed
-	 */
-     public function getAuthorName()
-    {
-        return $this->authorName;
-    }
-
-    /**
-	 * @return mixed $authorName
-	 * @return RedditPost
-	 */
-
-    public function setAuthorName($authorName)
-    {
-        $this->authorName = $authorName;
-    }
-
-    //7
     /**
 	 * @return mixed
 	 */
@@ -181,5 +167,41 @@ class RedditPost
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return mixed
+     */
+     public function getPostDate()
+    {
+        return $this->postDate;
+    }
+
+    /**
+     * @return mixed $postDate
+     * @return RedditPost
+     */
+    public function setPostDate($postDate)
+    {
+        $this->postDate = $postDate;
+    }
+
+    /**
+      * Get comments
+      *
+      * @return \Doctrine\Common\Collections\Collection
+      */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+      * @return mixed $comments
+      * @return RedditPost
+      */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
 }

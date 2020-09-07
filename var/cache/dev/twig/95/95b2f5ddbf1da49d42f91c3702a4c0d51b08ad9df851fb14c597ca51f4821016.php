@@ -86,8 +86,66 @@ class __TwigTemplate_a9c492feb478143eccc0ebd6df83102124db98d5168c48201aa60bc6da8
         // line 8
         echo twig_escape_filter($this->env, $this->getAttribute(($context["post"] ?? $this->getContext($context, "post")), "text", []), "html", null, true);
         echo "</p>
+\t";
+        // line 9
+        if ($this->getAttribute(($context["post"] ?? $this->getContext($context, "post")), "image", [])) {
+            // line 10
+            echo "\t\t<p> <img src=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl(("uploads/images/" . $this->getAttribute(($context["post"] ?? $this->getContext($context, "post")), "image", []))), "html", null, true);
+            echo "\" width=\"200\" height=\"200\"></p>
+\t";
+        }
+        // line 12
+        echo "\t<p align=\"right\"> <font color=\"#a6a6a6\"> ";
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute(($context["post"] ?? $this->getContext($context, "post")), "postDate", []), "yy/d/M H:m"), "html", null, true);
+        echo " </font></p>
 \t<hr>
-\t<a href=\"/\"> Go back </a>
+\t<tbody>
+\t<strong> <h4> Comments: </h4> </strong>
+\t<table class=\"table table-striped\">&nbsp;
+\t<tr>
+\t\t<td> 
+\t\t\t";
+        // line 19
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["comments"] ?? $this->getContext($context, "comments")));
+        foreach ($context['_seq'] as $context["_key"] => $context["com"]) {
+            // line 20
+            echo "\t\t\t\t<p> <font color=\"red\"> ";
+            echo twig_escape_filter($this->env, (($this->getAttribute($this->getAttribute($context["com"], "userId", [], "any", false, true), "username", [], "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute($context["com"], "userId", [], "any", false, true), "username", []), "Anonymouse")) : ("Anonymouse")), "html", null, true);
+            echo ":</font> &nbsp;";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["com"], "comment", []), "html", null, true);
+            echo "</p>
+\t\t\t\t
+\t\t\t\t<p> <font color=\"#a6a6a6\"> ";
+            // line 22
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["com"], "comDate", []), "yy/d/M H:m"), "html", null, true);
+            echo " </font></p>
+\t\t\t\t<hr>
+\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['com'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 25
+        echo "
+\t\t\t";
+        // line 26
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_start');
+        echo "
+\t\t\t";
+        // line 27
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(($context["form"] ?? $this->getContext($context, "form")), 'widget');
+        echo "
+\t\t\t";
+        // line 28
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["form"] ?? $this->getContext($context, "form")), 'form_end');
+        echo "
+\t\t \t<a href=\"/\"> Go back </a>
+\t\t</td>
+\t</tr>
+\t</table>\t
+\t</tbody>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -109,7 +167,7 @@ class __TwigTemplate_a9c492feb478143eccc0ebd6df83102124db98d5168c48201aa60bc6da8
 
     public function getDebugInfo()
     {
-        return array (  87 => 8,  83 => 7,  72 => 6,  52 => 4,  30 => 1,);
+        return array (  142 => 28,  138 => 27,  134 => 26,  131 => 25,  122 => 22,  114 => 20,  110 => 19,  99 => 12,  93 => 10,  91 => 9,  87 => 8,  83 => 7,  72 => 6,  52 => 4,  30 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -130,8 +188,31 @@ class __TwigTemplate_a9c492feb478143eccc0ebd6df83102124db98d5168c48201aa60bc6da8
 {% block body %} 
 \t<h3>{{ post.title }}</h3>
 \t<p>{{ post.text }}</p>
+\t{% if post.image %}
+\t\t<p> <img src=\"{{ asset('uploads/images/' ~ post.image) }}\" width=\"200\" height=\"200\"></p>
+\t{% endif %}
+\t<p align=\"right\"> <font color=\"#a6a6a6\"> {{ post.postDate|date('yy/d/M H:m') }} </font></p>
 \t<hr>
-\t<a href=\"/\"> Go back </a>
+\t<tbody>
+\t<strong> <h4> Comments: </h4> </strong>
+\t<table class=\"table table-striped\">&nbsp;
+\t<tr>
+\t\t<td> 
+\t\t\t{% for com in comments %}
+\t\t\t\t<p> <font color=\"red\"> {{ com.userId.username|default('Anonymouse') }}:</font> &nbsp;{{ com.comment }}</p>
+\t\t\t\t
+\t\t\t\t<p> <font color=\"#a6a6a6\"> {{ com.comDate|date('yy/d/M H:m') }} </font></p>
+\t\t\t\t<hr>
+\t\t\t{% endfor %}
+
+\t\t\t{{ form_start(form) }}
+\t\t\t{{ form_widget(form) }}
+\t\t\t{{ form_end(form) }}
+\t\t \t<a href=\"/\"> Go back </a>
+\t\t</td>
+\t</tr>
+\t</table>\t
+\t</tbody>
 {% endblock %}
 ", "reddit/show.html.twig", "C:\\xampp\\htdocs\\my_project\\app\\Resources\\views\\reddit\\show.html.twig");
     }

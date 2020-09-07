@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    image_directory: '%kernel.project_dir%/web/uploads/images'
 
 framework:
     #esi: ~
@@ -35,11 +36,13 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
+        driver: pdo_mysql  #da koristim ovaj pdo_sqlite onda bi doli otkomentira rutu i izbrisa ostatak komentara i ovdje prominija naziv
         host: '%database_host%'
         port: '%database_port%'
         dbname: '%database_name%'

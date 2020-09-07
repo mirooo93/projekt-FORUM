@@ -47,7 +47,7 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
         echo "</title>
        
         <link rel=\"stylesheet\" type=\"text/css\" href=\"bootstrap.min.css\" >
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://bootswatch.com/4/cosmo/bootstrap.min.css\" >
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://bootswatch.com/4/darkly/bootstrap.min.css\" >
         ";
         // line 9
         $this->displayBlock('stylesheets', $context, $blocks);
@@ -64,16 +64,13 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
         $this->displayBlock('body', $context, $blocks);
         // line 15
         echo "        </div>
-
-
-
         <script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\" integrity=\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\" crossorigin=\"anonymous\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
         <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>   
         ";
-        // line 22
+        // line 19
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 23
+        // line 20
         echo "    </body>
 </html>
 ";
@@ -137,7 +134,7 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
 
     }
 
-    // line 22
+    // line 19
     public function block_javascripts($context, array $blocks = [])
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
@@ -166,7 +163,7 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
 
     public function getDebugInfo()
     {
-        return array (  141 => 22,  124 => 14,  107 => 9,  89 => 5,  77 => 23,  75 => 22,  66 => 15,  64 => 14,  59 => 12,  55 => 10,  53 => 9,  46 => 5,  40 => 1,);
+        return array (  138 => 19,  121 => 14,  104 => 9,  86 => 5,  74 => 20,  72 => 19,  66 => 15,  64 => 14,  59 => 12,  55 => 10,  53 => 9,  46 => 5,  40 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -186,7 +183,7 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
         <title>{% block title %}Welcome!{% endblock %}</title>
        
         <link rel=\"stylesheet\" type=\"text/css\" href=\"bootstrap.min.css\" >
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://bootswatch.com/4/cosmo/bootstrap.min.css\" >
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"https://bootswatch.com/4/darkly/bootstrap.min.css\" >
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -194,9 +191,6 @@ class __TwigTemplate_8b3415536aaab83a82b93cf04835c1e0a2cd09ff5af39e863822ed7b3fb
         <div class=\"container\">
         {% block body %}{% endblock %}
         </div>
-
-
-
         <script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\" integrity=\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\" crossorigin=\"anonymous\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
         <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>   

@@ -78,32 +78,90 @@ class __TwigTemplate_9636812970fd940465ec136dcbeae3073479e56038c070bb885f0b19ae3
         echo " 
 \t";
         // line 7
+        $context["break"] = false;
+        // line 8
+        echo "\t";
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["users"] ?? $this->getContext($context, "users")));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
+            if ( !($context["break"] ?? $this->getContext($context, "break"))) {
+                // line 9
+                echo "\t\t";
+                if ((($context["users"] ?? $this->getContext($context, "users")) && $this->env->getExtension('Symfony\Bridge\Twig\Extension\SecurityExtension')->isGranted("IS_AUTHENTICATED_FULLY"))) {
+                    // line 10
+                    echo "\t\t\t<p align=\"right\"> Logged as: <font color=\"red\"> ";
+                    echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["app"] ?? $this->getContext($context, "app")), "user", []), "username", []), "html", null, true);
+                    echo " </font></p>
+\t\t\t";
+                    // line 11
+                    $context["break"] = true;
+                    // line 12
+                    echo "\t\t";
+                } else {
+                    // line 13
+                    echo "\t\t\t<p align=\"right\"> Logged as: <font color=\"red\"> Anonymouse </font></p>
+\t\t\t";
+                    // line 14
+                    $context["break"] = true;
+                    // line 15
+                    echo "\t\t";
+                }
+                // line 16
+                echo "\t";
+            }
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 17
+        echo "
+\t";
+        // line 18
         if (($context["posts"] ?? $this->getContext($context, "posts"))) {
-            // line 8
+            // line 19
             echo "\t\t<table class=\"table table-striped\">
 \t\t\t<thead>
 \t\t\t\t<tr>
 \t\t\t\t\t<th> Forum Title </th>\t
+\t\t\t\t\t<th> Author </th>
+\t\t\t\t\t<th> Date </th>
 \t\t\t\t\t<th> Posts </th>\t
 \t\t\t\t</tr>
 \t\t\t</thead>
 \t\t<tbody>
 \t\t\t";
-            // line 16
+            // line 29
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable(($context["posts"] ?? $this->getContext($context, "posts")));
             foreach ($context['_seq'] as $context["_key"] => $context["post"]) {
-                // line 17
+                // line 30
                 echo "\t\t\t\t<tr>
 \t\t\t\t\t<td> ";
-                // line 18
+                // line 31
                 echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "title", []), "html", null, true);
+                echo " </td> 
+\t\t\t\t\t<td> ";
+                // line 32
+                echo twig_escape_filter($this->env, (($this->getAttribute($this->getAttribute($context["post"], "userId", [], "any", false, true), "username", [], "any", true, true)) ? (_twig_default_filter($this->getAttribute($this->getAttribute($context["post"], "userId", [], "any", false, true), "username", []), "Anonymouse")) : ("Anonymouse")), "html", null, true);
+                echo " </td>
+\t\t\t\t\t<td> ";
+                // line 33
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["post"], "postDate", []), "yy/d/M H:m"), "html", null, true);
                 echo " </td>
 \t\t\t\t\t<td>  
 \t\t\t\t\t\t<a href=\"/reddit/";
-                // line 20
+                // line 35
                 echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "id", []), "html", null, true);
-                echo "\" class=\"btn btn-dark\"> Show </a>
+                echo "\" class=\"btn btn-primary\"> Show </a>
+\t\t\t\t\t\t<a href=\"/reddit/edit/";
+                // line 36
+                echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "id", []), "html", null, true);
+                echo "\" class=\"btn btn-warning\"> Edit </a>
+\t\t\t\t\t\t<a href=\"/reddit/";
+                // line 37
+                echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "id", []), "html", null, true);
+                echo "\" class=\"btn btn-danger\"> Delete </a>\t
+
 \t\t\t\t\t</td>
 \t\t\t\t</tr>
 \t\t\t";
@@ -111,17 +169,17 @@ class __TwigTemplate_9636812970fd940465ec136dcbeae3073479e56038c070bb885f0b19ae3
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 24
+            // line 42
             echo "\t\t</tbody>
 \t  </table>\t
 \t";
         } else {
-            // line 27
+            // line 45
             echo "\t\t<p> No articles to display </p>
 \t";
         }
-        // line 28
-        echo "\t
+        // line 47
+        echo "
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -143,7 +201,7 @@ class __TwigTemplate_9636812970fd940465ec136dcbeae3073479e56038c070bb885f0b19ae3
 
     public function getDebugInfo()
     {
-        return array (  124 => 28,  120 => 27,  115 => 24,  105 => 20,  100 => 18,  97 => 17,  93 => 16,  83 => 8,  81 => 7,  70 => 6,  52 => 4,  30 => 1,);
+        return array (  182 => 47,  178 => 45,  173 => 42,  162 => 37,  158 => 36,  154 => 35,  149 => 33,  145 => 32,  141 => 31,  138 => 30,  134 => 29,  122 => 19,  120 => 18,  117 => 17,  110 => 16,  107 => 15,  105 => 14,  102 => 13,  99 => 12,  97 => 11,  92 => 10,  89 => 9,  83 => 8,  81 => 7,  70 => 6,  52 => 4,  30 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -162,20 +220,38 @@ class __TwigTemplate_9636812970fd940465ec136dcbeae3073479e56038c070bb885f0b19ae3
 {% block title %} MyForum {% endblock %}
 
 {% block body %} 
+\t{% set break = false %}
+\t{% for user in users if not break %}
+\t\t{% if users and is_granted('IS_AUTHENTICATED_FULLY') %}
+\t\t\t<p align=\"right\"> Logged as: <font color=\"red\"> {{ app.user.username }} </font></p>
+\t\t\t{% set break = true %}
+\t\t{% else %}
+\t\t\t<p align=\"right\"> Logged as: <font color=\"red\"> Anonymouse </font></p>
+\t\t\t{% set break = true %}
+\t\t{% endif %}
+\t{% endfor %}
+
 \t{% if posts %}
 \t\t<table class=\"table table-striped\">
 \t\t\t<thead>
 \t\t\t\t<tr>
 \t\t\t\t\t<th> Forum Title </th>\t
+\t\t\t\t\t<th> Author </th>
+\t\t\t\t\t<th> Date </th>
 \t\t\t\t\t<th> Posts </th>\t
 \t\t\t\t</tr>
 \t\t\t</thead>
 \t\t<tbody>
 \t\t\t{% for post in posts %}
 \t\t\t\t<tr>
-\t\t\t\t\t<td> {{ post.title }} </td>
+\t\t\t\t\t<td> {{ post.title }} </td> 
+\t\t\t\t\t<td> {{ post.userId.username|default('Anonymouse') }} </td>
+\t\t\t\t\t<td> {{ post.postDate|date('yy/d/M H:m') }} </td>
 \t\t\t\t\t<td>  
-\t\t\t\t\t\t<a href=\"/reddit/{{ post.id }}\" class=\"btn btn-dark\"> Show </a>
+\t\t\t\t\t\t<a href=\"/reddit/{{ post.id }}\" class=\"btn btn-primary\"> Show </a>
+\t\t\t\t\t\t<a href=\"/reddit/edit/{{ post.id }}\" class=\"btn btn-warning\"> Edit </a>
+\t\t\t\t\t\t<a href=\"/reddit/{{ post.id }}\" class=\"btn btn-danger\"> Delete </a>\t
+
 \t\t\t\t\t</td>
 \t\t\t\t</tr>
 \t\t\t{% endfor %}
@@ -183,7 +259,8 @@ class __TwigTemplate_9636812970fd940465ec136dcbeae3073479e56038c070bb885f0b19ae3
 \t  </table>\t
 \t{% else %}
 \t\t<p> No articles to display </p>
-\t{% endif %}\t
+\t{% endif %}
+
 {% endblock %}
 ", "reddit/forum.html.twig", "C:\\xampp\\htdocs\\my_project\\app\\Resources\\views\\reddit\\forum.html.twig");
     }

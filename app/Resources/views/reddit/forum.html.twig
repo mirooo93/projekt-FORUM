@@ -4,20 +4,38 @@
 {% block title %} MyForum {% endblock %}
 
 {% block body %} 
+	{% set break = false %}
+	{% for user in users if not break %}
+		{% if users and is_granted('IS_AUTHENTICATED_FULLY') %}
+			<p align="right"> Logged as: <font color="red"> {{ app.user.username }} </font></p>
+			{% set break = true %}
+		{% else %}
+			<p align="right"> Logged as: <font color="red"> Anonymouse </font></p>
+			{% set break = true %}
+		{% endif %}
+	{% endfor %}
+
 	{% if posts %}
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th> Forum Title </th>	
+					<th> Author </th>
+					<th> Date </th>
 					<th> Posts </th>	
 				</tr>
 			</thead>
 		<tbody>
 			{% for post in posts %}
 				<tr>
-					<td> {{ post.title }} </td>
+					<td> {{ post.title }} </td> 
+					<td> {{ post.userId.username|default('Anonymouse') }} </td>
+					<td> {{ post.postDate|date('yy/d/M H:m') }} </td>
 					<td>  
-						<a href="/reddit/{{ post.id }}" class="btn btn-dark"> Show </a>
+						<a href="/reddit/{{ post.id }}" class="btn btn-primary"> Show </a>
+						<a href="/reddit/edit/{{ post.id }}" class="btn btn-warning"> Edit </a>
+						<a href="/reddit/{{ post.id }}" class="btn btn-danger"> Delete </a>	
+
 					</td>
 				</tr>
 			{% endfor %}
@@ -25,5 +43,6 @@
 	  </table>	
 	{% else %}
 		<p> No articles to display </p>
-	{% endif %}	
+	{% endif %}
+
 {% endblock %}

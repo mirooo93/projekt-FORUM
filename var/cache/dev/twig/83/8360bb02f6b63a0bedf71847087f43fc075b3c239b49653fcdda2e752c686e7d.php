@@ -47,6 +47,27 @@ class __TwigTemplate_1fe98a649b3bcb6874d262f01f0f7a7a0182f757161960dbd2a20e8d228
 \t\t\t</li>
 \t\t\t<li class=\"nav-item\">
 \t\t\t\t<a href=\"/reddit/new\" class=\"nav-link\"> New post </a>\t
+\t\t\t</li>
+\t\t\t
+\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t<strong><a href=\"/registar\" class=\"nav-link\"> Register </a>\t</strong>
+\t\t\t</li>
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t<strong><a href=\"/login\" class=\"nav-link\"> Login </a> </strong>
+\t\t\t</li> 
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t";
+        // line 25
+        if ($this->env->getExtension('Symfony\Bridge\Twig\Extension\SecurityExtension')->isGranted("IS_AUTHENTICATED_FULLY")) {
+            // line 26
+            echo "                \t <a href=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\LogoutUrlExtension')->getLogoutPath(), "html", null, true);
+            echo "\" class=\"btn btn-danger\"> Logout </a>
+            \t";
+        }
+        // line 28
+        echo "\t\t\t\t\t
 \t\t\t</li>\t
 \t\t</ul>
 \t </div> 
@@ -65,9 +86,14 @@ class __TwigTemplate_1fe98a649b3bcb6874d262f01f0f7a7a0182f757161960dbd2a20e8d228
         return "reddit/navbar.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  36 => 1,);
+        return array (  70 => 28,  64 => 26,  62 => 25,  36 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -94,6 +120,20 @@ class __TwigTemplate_1fe98a649b3bcb6874d262f01f0f7a7a0182f757161960dbd2a20e8d228
 \t\t\t</li>
 \t\t\t<li class=\"nav-item\">
 \t\t\t\t<a href=\"/reddit/new\" class=\"nav-link\"> New post </a>\t
+\t\t\t</li>
+\t\t\t
+\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t<strong><a href=\"/registar\" class=\"nav-link\"> Register </a>\t</strong>
+\t\t\t</li>
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t<strong><a href=\"/login\" class=\"nav-link\"> Login </a> </strong>
+\t\t\t</li> 
+\t\t\t<li class=\"nav-item\">
+\t\t\t\t{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                \t <a href=\"{{ logout_path() }}\" class=\"btn btn-danger\"> Logout </a>
+            \t{% endif %}
+\t\t\t\t\t
 \t\t\t</li>\t
 \t\t</ul>
 \t </div> 

@@ -2,83 +2,48 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\UserType;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; //bitno za rute Request/Route and Response
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use AppBundle\Controller\Task;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+
 
 class RegistarController extends Controller
 {
     /**
-     * @Route("/registar")
+     * @Route("/registar", name="reg")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
-       
+        $em = $this->getDoctrine()->getManager();
         $user = new User();
-        $user->setDueDate(new \DateTime('tomorrow'));
+        
 
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
-                'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ])
-            
-            ->add('save', SubmitType::class, ['label' => 'Registar'])
-            ->getForm();
-
+        $form = $this->createForm(UserType::class, $user);
+    
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $task = $form->getData();
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+            $em->persist($user);
+            $em->flush();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
-
-            return $this->redirectToRoute('log');  //prebacivanje na login preko name-a u ruti
-         }
-        return $this->render('default/registar.html.twig', [
-            'form' => $form->createView(),
-        ]);
+            return $this->redirectToRoute('log');
+            
+        }
+        return $this->render('reddit/testiranje.html.twig', ['form' => $form->createView()]);
     }
-
-    public function validate(User $user)
-    {
-            $link = $this->connectToDatabase();
-            $result_object = mysqli_query( $link,"SHOW TABLES");
-            $result = mysqli_fetch_all($result);
-            foreach($result as $korisnik)
-            {
-                if($user.getEmail() == $korisnik.getEmail())
-                    return true;
-            }
-            return false;
-    }
-    
-    public function connectToDatabase()
-    {
-        $link = mysqli_connect('localhost', 'symfony', '123456', 'symfony');
-        mysqli_set_charset($link,'UTF-8');
-        return $link;
-    }   
 }
 
 
@@ -86,7 +51,7 @@ class RegistarController extends Controller
 #php bin/console server:run 
 
 //stvaranje baze
-#C:\xampp\htdocs\my_project>php bin/console doctrine:database:create
+#C:\xampp\htdocs\my_project>C:\xampp\htdocs\my_project>php bin/console doctrine:database:create
 
 //stvaranje tablica
 #php bin/console doctrine:schema:update --force
@@ -114,3 +79,21 @@ class RegistarController extends Controller
 //Package sensio/generator-bundle is abandoned, you should avoid using it. Use symfony/maker-bundle instead.
 //Package zendframework/zend-eventmanager is abandoned, you should avoid using it. Use laminas/laminas-eventmanager instead.
 //Package zendframework/zend-code is abandoned, you should avoid using it. Use laminas/laminas-code instead.
+
+//za doviranje sql formata iz CMD-a
+#php bin/console doctrine:schema:update --dump-sql
+
+// <form action="{{ path('login') }}" method ="post"> </form>
+
+//trazenje putanje do projekta pa staratanje servera:
+//C:\Users\Miro> cd C:\
+
+//C:\>cd xampp
+
+//C:\xampp>cd htdocs
+
+//C:\xampp\htdocs>cd my_project
+
+//C:\xampp\htdocs\my_project>php bin/console server:run
+
+//http://localhost:8000/

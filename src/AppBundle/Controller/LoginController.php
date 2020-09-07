@@ -10,32 +10,27 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; //bitno za rute Request/Route and Response
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Controller\Task;
+use AppBundle\Entity\User;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends Controller
 {
     /**
      * @Route("/login", name="log")
      */
-    public function newAction(Request $request)
-    {
-       
-        $user = new User();
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class)
-            ->add('password', PasswordType::class)
-            ->add('save', SubmitType::class, ['label' => 'Login'])
-            ->getForm();
+    public function newAction(Request $request, AuthenticationUtils $authenticationUtils)
+    {  
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('reddit/test.html.twig', ['username' => $lastUsername, 'error' => $error]);
+    }
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-            $task = $form->getData();
-            return $this->redirectToRoute('hom'); 
-        } 
-        return $this->render('default/login.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+        
     }
 }
 
